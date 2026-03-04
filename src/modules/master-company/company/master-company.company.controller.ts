@@ -15,6 +15,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { MasterCompanyCompanyService } from './master-company.company.service';
 import { CreateCompanyDto } from './dtos/create-company.dto';
 import { UpdateCompanyDto } from './dtos/update-company.dto';
+import { PaginateCompaniesDto } from './dtos/paginate-companies.dto';
 
 @Controller('master-company/company')
 export class MasterCompanyCompanyController {
@@ -23,20 +24,8 @@ export class MasterCompanyCompanyController {
   ) {}
 
   @Get()
-  findAll(
-    @Query('page') page?: number,
-    @Query('limit') limit: number = 10,
-    @Query('search') search?: string,
-    @Query('lastId') lastId?: string,
-    @Query('lastCreatedAt') lastCreatedAt?: string,
-  ) {
-    return this.masterCompanyCompanyService.findAll(
-      limit,
-      page,
-      lastId,
-      lastCreatedAt,
-      search,
-    );
+  async findAll(@Query() query: PaginateCompaniesDto) {
+    return await this.masterCompanyCompanyService.findAll(query);
   }
   @Post()
   @UseInterceptors(FileInterceptor('file'))
