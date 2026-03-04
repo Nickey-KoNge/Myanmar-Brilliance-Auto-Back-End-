@@ -43,6 +43,16 @@ export class Company {
   @Column({ type: 'varchar', length: 100 })
   street_address: string;
 
+  @Column({ type: 'varchar', length: 100, default: 'Ko Khin Maung San' })
+  owner_name: string;
+
+  @Column({ type: 'varchar', length: 20, default: '09XXXXXXX' })
+  owner_phone: string;
+
+  @Index()
+  @Column({ type: 'varchar', length: 100, default: 'example@gmail.com' })
+  owner_email: string;
+
   @Column({ type: 'varchar', length: 100, nullable: true })
   website_url: string;
 
